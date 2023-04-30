@@ -8,6 +8,7 @@
 
 ### Aplikacija trebala bi imati sljedeće:
 - [] intuitivan i lijepo uređen te dovršen prikaz bez grešaka pri izvršavanju (sami osmisliti dizajn aplikacije, slika je samo primjer)
+![Google Keep Notes Clone](keeper.png)
 - [] barem tri prikaza (npr. početna/glavna stranica sa bilješkama, stranica za uređivanje profila i about) i na jednom od prikaza dohvatiti podatke s nekakvog API-ja npr. vrijeme danas
 - [] responzivan dizajn (koristiti Bootstrap)
 - [] login koristeći username i password
