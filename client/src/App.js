@@ -5,11 +5,39 @@ import {
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Profile from "./pages/Profile";
+import About from "./pages/About";
+
+const Layout = () => {
+	return (
+			<>
+				<Navbar/>
+				<Home/>
+				<Footer/>
+			</>
+	);
+}
 
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Home/>,
+		element: <Layout/>,
+		children: [
+			{
+				path: "/",
+				element: <Home/>
+			},
+			{
+				path: "/profile/:username",
+				element: <Profile/>
+			},
+			{
+				path: "/about",
+				element: <About/>
+			}
+		]
 	},
 	{
 		path: "/register",
@@ -23,7 +51,11 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-			<RouterProvider router={router}/>
+			<div className="app">
+				<div className="container">
+					<RouterProvider router={router}/>
+				</div>
+			</div>
 	);
 }
 
