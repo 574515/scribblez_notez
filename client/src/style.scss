@@ -1,9 +1,21 @@
-$lightGreen: #f1f1f1;
+@import "~bootstrap/scss/bootstrap";
+
+$lightGrey: #f1f1f1;
 
 .app {
   font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  background-color: $lightGrey;
 
   .container {
+    width: 1024px;
+
+    .link {
+      text-decoration: none;
+      color: inherit;
+    }
+
     // Login & Register
     .auth {
       display: flex;
@@ -11,7 +23,7 @@ $lightGreen: #f1f1f1;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background-color: $lightGreen;
+      background-color: $lightGrey;
 
       h1 {
         font-size: 1.5rem;
@@ -54,6 +66,76 @@ $lightGreen: #f1f1f1;
           text-align: center;
         }
       }
+    }
+
+    // Navbar
+    .navbar {
+      .container {
+        display: flex;
+        padding: 1em 0;
+        justify-content: space-between;
+
+        .logo {
+          img {
+            max-width: 64px;
+            max-height: 64px;
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .links {
+          display: flex;
+          align-items: center;
+          gap: 0.5em;
+
+          h6 {
+            font-size: 16px;
+            font-weight: 300;
+          }
+
+          span {
+            cursor: pointer;
+          }
+
+          .write {
+            background-color: $lightGrey;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 300;
+            border: 1px solid $lightGrey;
+
+            &:hover {
+              color: #ee2737;
+              background-color: #fff;
+              border: 1px solid #ee2737;
+            }
+          }
+        }
+      }
+    }
+
+    // Footer
+    footer {
+      margin-top: 100px;
+      padding: 20px;
+      background-color: $lightGrey;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+
+      img {
+        max-width: 64px;
+        max-height: 64px;
+        width: 100%;
+        height: 100%;
+      }
+
     }
   }
 }
