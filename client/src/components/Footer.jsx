@@ -1,10 +1,12 @@
 import React from 'react';
+import Logo from '../assets/img/logo.png';
 
 const Footer = () => {
 	return (
-			<div>
-				Footer
-			</div>
+			<footer>
+				<img src={Logo} alt="Logo"/>
+				<span>Web Programming (C) 2023</span>
+			</footer>
 	);
 };
 
