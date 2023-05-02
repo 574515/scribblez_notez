@@ -1,0 +1,59 @@
+$lightGreen: #f1f1f1;
+
+.app {
+  font-family: 'Roboto', sans-serif;
+
+  .container {
+    // Login & Register
+    .auth {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: $lightGreen;
+
+      h1 {
+        font-size: 1.5rem;
+        color: #58595a;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 3em;
+        background-color: #fff;
+        width: 200px;
+        gap: 20px;
+        border-radius: 1em;
+
+        input {
+          padding: 10px;
+          border: none;
+          border-bottom: 1px solid #000;
+        }
+
+        button {
+          padding: 10px;
+          border: none;
+          background-color: #ee2737;
+          color: #fff;
+          cursor: pointer;
+        }
+
+        span {
+          text-align: center;
+          font-size: small;
+        }
+
+        p {
+          font-size: small;
+          color: red;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

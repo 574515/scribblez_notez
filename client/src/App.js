@@ -1,6 +1,8 @@
 import {
 	createBrowserRouter,
 	RouterProvider,
+	Route,
+	Outlet
 } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -9,12 +11,13 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
+import "./style.scss";
 
 const Layout = () => {
 	return (
 			<>
 				<Navbar/>
-				<Home/>
+				<Outlet/>
 				<Footer/>
 			</>
 	);
