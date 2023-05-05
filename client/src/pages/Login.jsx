@@ -55,7 +55,6 @@ const Login = () => {
 	}
 
 	function _setErrorStyle(elem) {
-		console.log(elem.name + "\t" + elem.value)
 		if (elem.value === "") {
 			elem.className = "errorInput";
 		} else {
