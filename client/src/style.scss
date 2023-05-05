@@ -9,8 +9,6 @@ $lightGrey: #f1f1f1;
   background-color: $lightGrey;
 
   .container {
-    width: 1024px;
-
     .link {
       text-decoration: none;
       color: inherit;
@@ -37,7 +35,7 @@ $lightGrey: #f1f1f1;
         flex-direction: column;
         padding: 3em;
         background-color: #fff;
-        width: 200px;
+        width: 400px;
         gap: 20px;
         border-radius: 1em;
 
@@ -62,8 +60,18 @@ $lightGrey: #f1f1f1;
 
         p {
           font-size: small;
-          color: red;
           text-align: center;
+          color: red;
+        }
+      }
+
+      .registerAlert {
+        position: absolute;
+        bottom: 15vh;
+        text-align: center;
+
+        .btn-close:active, .btn-close:focus {
+          box-shadow: none;
         }
       }
     }
@@ -136,6 +144,17 @@ $lightGrey: #f1f1f1;
         height: 100%;
       }
 
+    }
+
+    .home {
+      .notes {
+        display: flex;
+
+        .post {
+          border: 1px solid black;
+          margin: 0 0.5em;
+        }
+      }
     }
   }
 }
