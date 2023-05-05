@@ -39,10 +39,17 @@ $lightGrey: #f1f1f1;
         gap: 20px;
         border-radius: 1em;
 
-        input {
+        /* TODO: Refactor for wider usage */
+        input, .validInput {
           padding: 10px;
           border: none;
           border-bottom: 1px solid #000;
+        }
+
+        .errorInput {
+          padding: 10px;
+          border: none;
+          border-bottom: 2px solid red;
         }
 
         button {
@@ -65,7 +72,7 @@ $lightGrey: #f1f1f1;
         }
       }
 
-      .registerAlert {
+      .registerAlert, .loginAlert {
         position: absolute;
         bottom: 15vh;
         text-align: center;
