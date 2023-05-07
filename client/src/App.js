@@ -1,11 +1,10 @@
 import {
 	createBrowserRouter,
 	RouterProvider,
-	Route,
 	Outlet
 } from "react-router-dom";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -44,7 +43,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/register",
-		element: <Register/>
+		element: <Signup/>
 	},
 	{
 		path: "/login",
