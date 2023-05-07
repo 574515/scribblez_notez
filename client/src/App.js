@@ -1,21 +1,16 @@
-import {
-	createBrowserRouter,
-	RouterProvider,
-	Outlet
-} from "react-router-dom";
+import {createBrowserRouter, Outlet, RouterProvider} from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
+import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
-import Profile from "./pages/Profile";
-import About from "./pages/About";
 import "./style.scss";
+import Explore from "./pages/Explore";
 
 const Layout = () => {
 	return (
 			<>
-				<Navbar/>
+				<Navigation/>
 				<Outlet/>
 				<Footer/>
 			</>
@@ -32,17 +27,13 @@ const router = createBrowserRouter([
 				element: <Home/>
 			},
 			{
-				path: "/profile/:username",
-				element: <Profile/>
-			},
-			{
-				path: "/about",
-				element: <About/>
+				path: "/explore",
+				element: <Explore/>
 			}
 		]
 	},
 	{
-		path: "/register",
+		path: "/signup",
 		element: <Signup/>
 	},
 	{
