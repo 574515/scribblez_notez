@@ -85,11 +85,32 @@ body {
           ::file-selector-button {
             display: none;
           }
+
+          .tooltipText {
+            color: rgba(0, 0, 0, .5);
+            font-size: .7em;
+          }
+
+          .form-check {
+            input, label {
+              margin: 0 auto;
+              color: $blue;
+            }
+
+            input {
+              border-radius: .5em;
+              border: .5px solid $blue !important;
+
+              &:checked {
+                background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 20 20%27%3e%3cpath fill=%27none%27 stroke=%27%230d6efd%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%273%27 d=%27m6 10 3 3 6-6%27/%3e%3c/svg%3e");
+              }
+
+            }
+          }
         }
 
-        .registerAlert, .loginAlert {
+        .signUpAlert, .loginAlert {
           position: absolute;
-          bottom: 19dvh;
           text-align: center;
           background: rgba(255, 255, 255, 0.3);
           border-radius: .5em;
@@ -102,6 +123,14 @@ body {
           .btn-close:active, .btn-close:focus {
             box-shadow: none;
           }
+        }
+
+        .loginAlert {
+          bottom: 19dvh;
+        }
+
+        .signUpAlert {
+          top: 8dvh;
         }
       }
 
