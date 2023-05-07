@@ -44,7 +44,9 @@ const Register = () => {
 					<form>
 						<input type="text" placeholder="Username" name="username" required onChange={handleChanges}/>
 						<input type="email" placeholder="E-mail" name="email" required onChange={handleChanges}/>
-						<input type="password" placeholder="Password" name="password" required onChange={handleChanges}/>
+						<input type="password" placeholder="Password" name="password1" required onChange={handleChanges}/>
+						<input type="password" placeholder="Repeat Password" name="password2" required onChange={handleChanges}/>
+						<input className="form-control" type="file" id="formFile"/>
 						<button onClick={handleSubmit}>REGISTER</button>
 						<span>Already have an account? <Link to="/login">Login</Link></span>
 					</form>
