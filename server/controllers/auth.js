@@ -2,7 +2,7 @@ import {db} from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const register = (req, res) => {
+export const signup = (req, res) => {
 	const query = "SELECT * FROM sn_users WHERE email = ? OR username = ?";
 	db.query(query, [req.body.email, req.body.username], (err, data) => {
 		if (err) return res.json(err);
