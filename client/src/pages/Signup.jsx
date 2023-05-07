@@ -21,7 +21,7 @@ const Signup = () => {
 		const password = e.target.form.password;
 		const repeatPassword = e.target.form.password2;
 		if (!_checkForm(username, email, password, repeatPassword)) return null;
-		await axios.post("http://localhost:8800/api/auth/register", inputs)
+		await axios.post("http://localhost:8800/api/auth/signup", inputs)
 				.then((data) => {
 					setMsg(data.data);
 					setShowMsg(true);

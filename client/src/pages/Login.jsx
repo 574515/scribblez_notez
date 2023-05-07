@@ -69,7 +69,7 @@ const Login = () => {
 					<div className="text-white-50 my-2">
 						Don't have an account?
 						<br/>
-						<Link className="link" to="/register">Sign up</Link> and get started!
+						<Link className="link" to="/signup">Sign up</Link> and get started!
 					</div>
 				</Form>
 				<Alert className="loginAlert" key="primary" variant="primary" onClose={() => setShowMsg(false)} show={showMsg} dismissible={isErr}>
