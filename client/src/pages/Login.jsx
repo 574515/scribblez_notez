@@ -1,29 +1,17 @@
 import React, {useContext, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import {Alert} from "react-bootstrap";
+import {Alert, Button, Form} from "react-bootstrap";
 import {AuthContext} from "../context/authContext";
+import {errorInput, errorPasswordInput, validInput, validPasswordInput} from "../globals";
 
 const Login = () => {
-
-	const timeoutInMillis = 3000;
-
-	const [inputs, setInputs] = useState({
-		username: "",
-		password: ""
-	});
-
+	const [inputs, setInputs] = useState({username: "", password: ""});
 	const [msg, setMsg] = useState("");
 	const [showMsg, setShowMsg] = useState(false);
 	const [isErr, setIsErr] = useState(false);
-
 	const navigate = useNavigate();
-
 	const {login} = useContext(AuthContext);
-
-	const handleChanges = e => {
-		setInputs(prev => ({...prev, [e.target.name]: e.target.value}))
-	};
-	let x;
+	const handleChanges = e => setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -31,21 +19,22 @@ const Login = () => {
 		const password = e.target.form.password;
 		if (!_checkForm(username, password)) return null;
 		try {
+			_setErrorStyles(username, password);
 			await login(inputs);
 			navigate("/");
 		} catch (err) {
-			_setErrorStyle(username);
-			_setErrorStyle(password);
+			_setErrorStyles(username, password);
 			setMsg(err.response.data);
 			setShowMsg(true);
 			setIsErr(true);
 		}
 	};
 
+	const handleShowPassword = e => e.target.form.password.type = e.target.checked ? "text" : "password";
+
 	function _checkForm(username, password) {
 		if (username.value === "" || password.value === "") {
-			_setErrorStyle(username);
-			_setErrorStyle(password);
+			_setErrorStyles(username, password);
 			setMsg("Both fields must have value.");
 			setShowMsg(true);
 			setIsErr(true);
@@ -55,26 +44,36 @@ const Login = () => {
 	}
 
 	function _setErrorStyle(elem) {
-		if (elem.value === "") {
-			elem.className = "errorInput";
+		if (elem.name === "password") {
+			if (elem.value === "") elem.className = errorPasswordInput;
+			else elem.className = validPasswordInput;
 		} else {
-			elem.className = "validInput";
+			if (elem.value === "") elem.className = errorInput;
+			else elem.className = validInput;
 		}
 	}
 
+	function _setErrorStyles(username, password) {
+		_setErrorStyle(username);
+		_setErrorStyle(password);
+	}
+
 	return (
-			<div className="auth">
-				<div className="wrapper">
-					<h1>LOGIN</h1>
-					<form>
-						<input className="" type="text" name="username" placeholder="Username" required onChange={handleChanges}/>
-						<input type="password" name="password" placeholder="Password" required onChange={handleChanges}/>
-						<button type="submit" onClick={handleSubmit}>LOGIN</button>
-						<span>Don't have an account? <Link to="/register">Register</Link></span>
-					</form>
-				</div>
-				<Alert className="loginAlert" key={isErr ? "danger" : "warning"} variant={isErr ? "danger" : "warning"} onClose={() => setShowMsg(false)} show={showMsg} dismissible={isErr}>
-					<span><b>{msg}</b></span>
+			<div className="auth col-6 mx-auto">
+				<Form className="px-5 py-3 text-center row">
+					<h1 className="display-6 mb-4">Login</h1>
+					<Form.Control className="my-2" size="sm" type="text" name="username" placeholder="Username" onChange={handleChanges}/>
+					<Form.Control className="my-2 w-75" size="sm" type="password" name="password" placeholder="Password" onChange={handleChanges}/>
+					<Form.Check type="checkbox" className="w-25 my-auto" label="" onClick={handleShowPassword}/>
+					<Button className="w-75 mx-auto my-2" variant="outline-primary" type="submit" size="sm" onClick={handleSubmit}>Log In</Button>
+					<div className="text-white-50 my-2">
+						Don't have an account?
+						<br/>
+						<Link className="link" to="/register">Sign up</Link> and get started!
+					</div>
+				</Form>
+				<Alert className="loginAlert" key="primary" variant="primary" onClose={() => setShowMsg(false)} show={showMsg} dismissible={isErr}>
+					<span>{msg}</span>
 				</Alert>
 			</div>
 	);
