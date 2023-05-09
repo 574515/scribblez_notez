@@ -19,21 +19,67 @@ body {
     padding: 0;
 
     .container {
+      .singleNote {
+        .card {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: .5em;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          transition: all .5s ease;
+
+          &:hover {
+            color: #000 !important;
+          }
+
+          .card-footer {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+          }
+        }
+      }
+
+      .noteControls {
+        img {
+          max-width: 32px;
+          cursor: pointer;
+        }
+      }
 
       .addNoteWrapper {
         margin: 1em 0;
 
         input, textarea {
-          border-radius: unset;
-          border: none;
+          padding: .4em;
+          border-radius: .5em;
+          border: none !important;
+          border-bottom: 1px solid #000;
+          background-color: inherit;
         }
 
         input:focus, textarea:focus {
+          background-color: inherit;
           box-shadow: unset;
         }
 
         textarea {
           resize: none;
+        }
+
+        #title {
+          max-height: 20px;
+        }
+
+        .card {
+          background: rgba(255, 255, 255, 0.2);
+          border-radius: .5em;
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(5px);
+          -webkit-backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.3);
         }
       }
 
@@ -148,6 +194,14 @@ body {
       margin: 0 auto;
 
       .container {
+        .navbar-toggler-icon {
+          background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 30 30%27%3e%3cpath stroke=%27rgba%281, 64, 158, 0.3%29%27 stroke-linecap=%27round%27 stroke-miterlimit=%2710%27 stroke-width=%272%27 d=%27M4 7h22M4 15h22M4 23h22%27/%3e%3c/svg%3e");
+        }
+
+        .navbar-toggler:active, .navbar-toggler:focus {
+          box-shadow: none;
+        }
+
         .navbar-collapse {
 
           img {
@@ -198,5 +252,38 @@ body {
         max-width: 32px;
       }
     }
+  }
+}
+
+.modal-body {
+  form {
+    input, textarea {
+      padding: .4em;
+      border: none;
+      background-color: inherit;
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    input:focus, textarea:focus {
+      background-color: inherit;
+      box-shadow: unset;
+    }
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: .5em;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  .profilePicture {
+    max-width: 128px;
+    border-radius: 50%;
   }
 }
