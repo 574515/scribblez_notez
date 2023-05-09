@@ -9,15 +9,16 @@ export const signup = (req, res) => {
 		if (data.length) return res.status(409).json("User already exists.");
 
 		bcrypt.genSalt(10, (err, salt) => {
-			bcrypt.hash(req.body.password, salt, (err, hash) => {
-				const insertQuery = "INSERT INTO sn_users(`username`, `email`, `password`) VALUES (?)";
+			bcrypt.hash(req.body.inputs.password, salt, (err, hash) => {
+				const insertQuery = "INSERT INTO sn_users(`username`, `email`, `password`, `image`) VALUES (?)";
 				const insertValues = [
-					req.body.username,
-					req.body.email,
-					hash
+					req.body.inputs.username,
+					req.body.inputs.email,
+					hash,
+					req.body.imgUrl.filename
 				];
 				db.query(insertQuery, [insertValues], (err, data) => {
-					if (err) return res.json(err);
+					if (err) console.log(err);
 					return res.status(200).json("User has been created!");
 				});
 			});
@@ -34,7 +35,7 @@ export const login = (req, res) => {
 		bcrypt.compare(req.body.password, data[0].password, (err, result) => {
 			if (err) return res.status(400).json(err);
 			if (!result) return res.status(400).json("Wrong username or password.");
-			const token = jwt.sign({id: data[0].id}, "jwtkey");
+			const token = jwt.sign({id: data[0].id, username: data[0].username}, "jwtkey");
 			const {password, ...other} = data[0];
 			res.cookie("access_token", token, {
 				httpOnly: true
