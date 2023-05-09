@@ -9,19 +9,32 @@ const Signup = () => {
 	const [msg, setMsg] = useState("");
 	const [showMsg, setShowMsg] = useState(false);
 	const [isErr, setIsErr] = useState(false);
+	const [file, setFile] = useState(null);
 	const navigate = useNavigate();
 	const handleChanges = e => {
 		setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
 	}
 
+	const upload = async () => {
+		try {
+			const formData = new FormData();
+			formData.append("file", file);
+			const res = await axios.post("/api/uploads", formData);
+			return res.data;
+		} catch (err) {
+			console.log(err);
+		}
+	}
+
 	const handleSubmit = async e => {
 		e.preventDefault();
+		const imgUrl = await upload();
 		const username = e.target.form.username;
 		const email = e.target.form.email;
 		const password = e.target.form.password;
 		const repeatPassword = e.target.form.password2;
 		if (!_checkForm(username, email, password, repeatPassword)) return null;
-		await axios.post("http://localhost:8800/api/auth/signup", inputs)
+		await axios.post("http://localhost:8800/api/auth/signup", {inputs, imgUrl})
 				.then((data) => {
 					setMsg(data.data);
 					setShowMsg(true);
@@ -102,7 +115,7 @@ const Signup = () => {
 						<Form.Check type="checkbox" className="w-25 m-auto" label="" onClick={handleShowPassword}/>
 						<Form.Control className="my-2 w-75" size="sm" type="password" name="password2" id="password2" placeholder="Repeat Password" onChange={handleChanges}/>
 						<Form.Check type="checkbox" className="w-25 my-auto" label="" onClick={handleShowRepeatPassword}/>
-						<Form.Control className="my-2" size="sm" type="file" name="profilePhoto" accept="image/png"/>
+						<Form.Control className="my-2" size="sm" type="file" name="profilePhoto" accept="image/png" onChange={e => setFile(e.target.files[0])}/>
 						<Button className="w-75 mx-auto my-2" variant="outline-primary" type="submit" size="sm" onClick={handleSubmit}>Sign Up</Button>
 
 						<div className="text-white-50 my-2">
