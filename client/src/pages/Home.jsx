@@ -11,12 +11,12 @@ const Home = () => {
 	const [notes, setNotes] = useState([]);
 	const {currentUser} = useContext(AuthContext);
 	let params = useMemo(() => {
-		return {currentUserId: null}
+		return {currentUserUsername: null}
 	}, []);
 
 	const fetchData = useCallback(async () => {
 		try {
-			const res = await axios.get("http://localhost:8800/api/notes", {params});
+			const res = await axios.get("/api/notes", {params});
 			setNotes(res.data);
 		} catch (err) {
 			console.log(err);
@@ -27,7 +27,7 @@ const Home = () => {
 		if (currentUser === null) {
 			navigate("/login");
 		} else {
-			params.currentUserId = currentUser.id;
+			params.currentUserUsername = currentUser.username;
 		}
 		fetchData().then();
 	}, [fetchData, currentUser, navigate, params]);
@@ -35,8 +35,10 @@ const Home = () => {
 	return (
 			<div className="home">
 				<AddNote fetchData={fetchData}/>
-				<div className="notes row g-5">
-					{notes.map((note) => <Note noteData={note} fetchData={fetchData} key={note.id}/>)}
+				<div className="notes row row-cols-4 g-2">
+					{notes.map((note) => <div className="col singleNote" key={note.id}>
+						<Note key={note.id} noteData={note} fetchData={fetchData}/>
+					</div>)}
 				</div>
 			</div>
 	);
