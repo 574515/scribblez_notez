@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import "./style.scss";
 import Explore from "./pages/Explore";
 import Profile from "./pages/Profile";
+import DebugTools from "./pages/DebugTools";
 
 const Layout = () => {
 	return (
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
 			{
 				path: "/:username",
 				element: <Profile/>
+			},
+			{
+				path: "/debug_tools",
+				element: <DebugTools/>
 			}
 		]
 	},
