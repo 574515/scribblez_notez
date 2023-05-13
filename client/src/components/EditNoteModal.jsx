@@ -2,18 +2,18 @@ import {Button, Form, Modal} from "react-bootstrap";
 import React, {useState} from "react";
 import axios from "axios";
 
-const EditModal = ({show, handleClose, noteData, fetchData}) => {
+const EditNoteModal = ({show, handleClose, noteData, getData}) => {
 
 	const [inputs, setInputs] = useState({title: noteData.title, body: noteData.body});
-	const handleChanges = e => {
-		setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
-	};
+	const handleChanges = e => setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
+
 	const handleEdit = async e => {
 		e.preventDefault();
 		handleClose();
 		try {
-			await axios.put(`/api/notes/${noteData.id}`, {inputs, id: noteData.id});
-			fetchData().then();
+			await axios
+					.put(`/api/notes/${noteData.id}`, {inputs, id: noteData.id});
+			getData();
 		} catch (err) {
 			console.log(err);
 		}
@@ -41,4 +41,4 @@ const EditModal = ({show, handleClose, noteData, fetchData}) => {
 	);
 }
 
-export default EditModal;
+export default EditNoteModal;
