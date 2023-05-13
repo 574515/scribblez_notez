@@ -4,8 +4,13 @@ import Git from '../assets/img/git.svg';
 import Instagram from '../assets/img/instagram.svg';
 import LinkedIn from '../assets/img/linkedin.svg';
 import Twitter from '../assets/img/twitter.svg';
+import {useLocation} from "react-router-dom";
 
 const Footer = () => {
+
+	const {pathname} = useLocation();
+	if (pathname === "/debug_tools") return null;
+
 	return (
 			<footer className="text-center text-white">
 				<div className="p-2">
