@@ -1,62 +1,54 @@
 import React, {useContext, useState} from 'react';
 import {Button, Card, Form} from "react-bootstrap";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../context/authContext";
 
-const AddNote = ({fetchData}) => {
+const AddNote = ({getData}) => {
 
-	const [inputs, setInputs] = useState({title: "", body: ""});
 	const {currentUser} = useContext(AuthContext);
 	const currentUserUsername = currentUser?.username;
-	const [msg, setMsg] = useState();
-	const [showMsg, setShowMsg] = useState(false);
-	const [isErr, setIsErr] = useState(false);
+	const inputsInitialSate = {title: "", body: ""};
+	const [inputs, setInputs] = useState(inputsInitialSate);
 
-	const navigate = useNavigate();
-
-	const handleChanges = e => {
-		setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
-	};
+	const handleChanges = e => setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
-			const res = await axios.post("/api/notes/", {inputs, currentUserUsername});
-			setMsg(res.data);
-			setShowMsg(true);
-			setIsErr(false);
-			fetchData();
+			await axios
+					.post("/api/notes/", {inputs, currentUserUsername});
+			getData();
 			setInputs({title: "", body: ""});
 		} catch (err) {
-			setMsg(err.response.data);
-			setShowMsg(true);
-			setIsErr(true);
+			console.log(err);
 		}
 	};
 
 	const handleKeySubmit = (e) => {
 		if (e.ctrlKey && e.keyCode === 13)
-			handleSubmit(e).then(() => {
-				return null;
-			});
+			handleSubmit(e).then();
 	};
 
 	return (
 			<div className="addNoteWrapper row">
-				<Card className="col-5 p-1 mx-auto">
+				<Card className="col-12 col-xxl-4 py-5 px-3 mx-auto">
 					<Card.Body>
 						<Form>
-							<div className="row">
-								<div className="col-9">
-									<Form.Control as="textarea" name="title" placeholder="Title" id="title" value={inputs.title} onChange={handleChanges} onKeyDown={handleKeySubmit}/>
-								</div>
-								<div className="col text-end">
-									<Button variant="outline-primary" onClick={handleSubmit}>Submit</Button>
-								</div>
-							</div>
+							<Form.Control as="textarea" name="title" placeholder="Title" id="title" value={inputs.title} onChange={handleChanges} onKeyDown={handleKeySubmit}/>
 							<hr/>
 							<Form.Control as="textarea" name="body" placeholder="Note" value={inputs.body} onChange={handleChanges} onKeyDown={handleKeySubmit}/>
+							<div className="row">
+								<div className="col-12 col-xxl-6 mx-auto">
+									<Button variant="outline-primary" className="w-100 mx-auto mt-4" onClick={handleSubmit} disabled={inputs.body === "" && inputs.title === ""}>
+										Submit
+									</Button>
+								</div>
+								<div className="col-12 col-xxl-6 mx-auto">
+									<Button variant="outline-danger" className="w-100 mx-auto mt-4" onClick={() => setInputs(inputsInitialSate)} disabled={inputs.body === "" && inputs.title === ""}>
+										Clear
+									</Button>
+								</div>
+							</div>
 						</Form>
 					</Card.Body>
 				</Card>
