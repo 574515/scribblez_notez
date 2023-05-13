@@ -6,6 +6,8 @@ import ActiveUser from '../assets/img/activeUser.svg';
 import Explore from '../assets/img/explore.svg';
 import ActiveExplore from '../assets/img/activeExplore.svg';
 import LogoutIcon from '../assets/img/logout.svg';
+import DebugTools from '../assets/img/debugTools.svg';
+import ActiveDebugTools from '../assets/img/activeDebugTools.svg';
 import {AuthContext} from "../context/authContext";
 import {Container, Nav, Navbar} from "react-bootstrap";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
@@ -20,10 +22,12 @@ const Navigation = () => {
 	const goHome = () => navigation("/");
 	const goExplore = () => navigation("/explore");
 	const goToProfile = () => navigation(`/${currentUser.username}`);
+	const goToDebug = () => navigation("/debug_tools");
 
 	const isHomeActive = () => {
 		return location.pathname === "/";
 	}
+
 	const isExploreActive = () => {
 		return location.pathname === "/explore";
 	}
@@ -32,25 +36,34 @@ const Navigation = () => {
 		return location.pathname === `/${params.username}`;
 	}
 
+	const isOnDebug = () => {
+		return location.pathname === "/debug_tools";
+	}
+
 	return (
 			<Navbar collapseOnSelect expand="lg">
 				<Container>
 					<Navbar.Toggle aria-controls="responsive-navbar-nav"/>
 					<Navbar.Collapse id="responsive-navbar-nav">
 						<Nav className="mx-auto text-center">
-							<Nav.Link className="mx-4" active={isHomeActive()} onClick={goHome}>
+							<Nav.Link onClick={goHome}>
 								<img src={isHomeActive() ? ActiveLogo : Logo} alt=""/>&nbsp;
-								<span className={isHomeActive() ? "linkActive text-white" : "text-dark"}>ScribbleZNoteZ</span>
+								<span className={isHomeActive() ? "text-white" : ""}>ScribbleZNoteZ</span>
 							</Nav.Link>
-							<Nav.Link active={isExploreActive()} className={isExploreActive() ? "mx-4 text-white" : "mx-4 text-dark"} onClick={goExplore}>
+							<Nav.Link onClick={goExplore}>
 								<img src={isExploreActive() ? ActiveExplore : Explore} alt=""/>&nbsp;
-								<span className={isExploreActive() ? "linkActive text-white" : "text-dark"}>Explore</span>
+								<span className={isExploreActive() ? "text-white" : ""}>Explore</span>
 							</Nav.Link>
-							<Nav.Link active={isOnProfile()} className={isOnProfile() ? "mx-4 text-white" : "mx-4 text-dark"} onClick={goToProfile}>
+							<Nav.Link onClick={goToProfile}>
 								<img src={isOnProfile() ? ActiveUser : User} alt=""/>&nbsp;
-								<span className={isExploreActive() ? "linkActive text-white" : "text-dark"}>{currentUser?.username}</span>
+								<span className={isOnProfile() ? "text-white" : ""}>{currentUser?.username}</span>
 							</Nav.Link>
-							<Nav.Link className="mx-4" onClick={logout}>
+							{currentUser?.is_admin ?
+									<Nav.Link onClick={goToDebug}>
+										<img src={isOnDebug() ? ActiveDebugTools : DebugTools} alt=""/>&nbsp;
+										<span className={isOnDebug() ? "text-white" : ""}>Tools</span>
+									</Nav.Link> : ""}
+							<Nav.Link onClick={logout}>
 								<img src={LogoutIcon} alt=""/>&nbsp;<span>Logout</span>
 							</Nav.Link>
 						</Nav>
