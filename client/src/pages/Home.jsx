@@ -4,42 +4,49 @@ import {useNavigate} from "react-router-dom";
 import Note from "../components/Note";
 import {AuthContext} from "../context/authContext";
 import AddNote from "../components/AddNote";
+import UpIcon from '../assets/img/up.svg';
+import {goToTop} from "../globals";
 
 const Home = () => {
+
+	const {currentUser} = useContext(AuthContext);
 	const navigate = useNavigate();
 
+
+	const endpoints = useMemo(() => {
+		return "/api/notes";
+	}, []);
 	const [notes, setNotes] = useState([]);
-	const {currentUser} = useContext(AuthContext);
 	let params = useMemo(() => {
 		return {currentUserUsername: null}
 	}, []);
+	const [showTopBtn, setShowTopBtn] = useState(false);
 
-	const fetchData = useCallback(async () => {
-		try {
-			const res = await axios.get("/api/notes", {params});
-			setNotes(res.data);
-		} catch (err) {
-			console.log(err);
-		}
-	}, [params]);
+	const getData = useCallback(() => {
+		axios.get(endpoints, {params}).then((notes) => setNotes(notes.data));
+	}, [endpoints, params]);
 
 	useEffect(() => {
-		if (currentUser === null) {
-			navigate("/login");
-		} else {
-			params.currentUserUsername = currentUser.username;
-		}
-		fetchData().then();
-	}, [fetchData, currentUser, navigate, params]);
+		currentUser === null ? navigate("/login") : params.currentUserUsername = currentUser.username;
+		getData();
+		window.addEventListener('scroll', () => setShowTopBtn(window.scrollY > 150));
+	}, [currentUser, getData, navigate, params]);
 
 	return (
 			<div className="home">
-				<AddNote fetchData={fetchData}/>
+				<AddNote getData={getData}/>
 				<div className="notes row row-cols-4 g-2">
 					{notes.map((note) => <div className="col singleNote" key={note.id}>
-						<Note key={note.id} noteData={note} fetchData={fetchData}/>
+						<Note key={note.id} noteData={note} getData={getData}/>
 					</div>)}
 				</div>
+				{showTopBtn && <div className="top-to-btm">
+					<span className="icon-position" onClick={goToTop}>
+						<div className="img-desc-go text-center">GO</div>
+						<img src={UpIcon} alt=""/>
+						<div className="img-desc text-center">UP</div>
+					</span>
+				</div>}
 			</div>
 	);
 };
