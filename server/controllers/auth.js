@@ -1,6 +1,7 @@
 import {db} from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {toISOStringWithOffset} from "../helpers.js";
 
 export const signup = (req, res) => {
 	const query = "SELECT * FROM sn_users WHERE email = ? OR username = ?";
@@ -10,15 +11,18 @@ export const signup = (req, res) => {
 
 		bcrypt.genSalt(10, (err, salt) => {
 			bcrypt.hash(req.body.inputs.password, salt, (err, hash) => {
-				const insertQuery = "INSERT INTO sn_users(`username`, `email`, `password`, `image`) VALUES (?)";
+				const insertQuery = "INSERT INTO sn_users(`first_name`, `last_name`, `username`, `email`, `password`, `image`, `registration_date`) VALUES (?)";
 				const insertValues = [
+					req.body.inputs.first_name,
+					req.body.inputs.last_name,
 					req.body.inputs.username,
 					req.body.inputs.email,
 					hash,
-					req.body.imgUrl.filename
+					req.body.imgUrl.filename,
+					toISOStringWithOffset(new Date()),
 				];
-				db.query(insertQuery, [insertValues], (err, data) => {
-					if (err) console.log(err);
+				db.query(insertQuery, [insertValues], (err) => {
+					if (err) return res.json(err);
 					return res.status(200).json("User has been created!");
 				});
 			});
