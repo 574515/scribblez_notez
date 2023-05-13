@@ -8,9 +8,9 @@ import cookieParser from 'cookie-parser';
 import multer from "multer";
 
 const app = express();
+const port = 8800;
 
 app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
@@ -40,6 +40,6 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.listen(8800, () => {
-	console.log("Listening on port 8800");
+app.listen(port, () => {
+	console.log(`Listening on port ${port}`);
 });
