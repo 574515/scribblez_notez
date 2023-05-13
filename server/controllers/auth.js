@@ -8,7 +8,6 @@ export const signup = (req, res) => {
 	db.query(query, [req.body.email, req.body.username], (err, data) => {
 		if (err) return res.json(err);
 		if (data.length) return res.status(409).json("User already exists.");
-
 		bcrypt.genSalt(10, (err, salt) => {
 			bcrypt.hash(req.body.inputs.password, salt, (err, hash) => {
 				const insertQuery = "INSERT INTO sn_users(`first_name`, `last_name`, `username`, `email`, `password`, `image`, `registration_date`) VALUES (?)";
@@ -35,7 +34,6 @@ export const login = (req, res) => {
 	db.query(query, [req.body.username], (err, data) => {
 		if (err) return res.json(err);
 		if (data.length === 0) return res.status(404).json("User not found.");
-
 		bcrypt.compare(req.body.password, data[0].password, (err, result) => {
 			if (err) return res.status(400).json(err);
 			if (!result) return res.status(400).json("Wrong username or password.");
