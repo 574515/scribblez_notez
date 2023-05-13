@@ -1,40 +1,47 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {Alert, Button, Form} from "react-bootstrap";
 import {AuthContext} from "../context/authContext";
-import {errorInput, errorPasswordInput, validInput, validPasswordInput} from "../globals";
+import {inputClassStyles} from "../globals";
 
 const Login = () => {
+
+	const {currentUser, login} = useContext(AuthContext);
+	const navigate = useNavigate();
+
 	const [inputs, setInputs] = useState({username: "", password: ""});
+	const [isErr, setIsErr] = useState(false);
 	const [msg, setMsg] = useState("");
 	const [showMsg, setShowMsg] = useState(false);
-	const [isErr, setIsErr] = useState(false);
-	const navigate = useNavigate();
-	const {login} = useContext(AuthContext);
+
 	const handleChanges = e => setInputs(prev => ({...prev, [e.target.name]: e.target.value}));
+
+	const handleShowPassword = e => e.target.form.password.type = e.target.checked ? "text" : "password";
+
+	useEffect(() => {
+		if (currentUser !== null) navigate("/");
+	}, [currentUser, navigate]);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
 		const username = e.target.form.username;
 		const password = e.target.form.password;
-		if (!_checkForm(username, password)) return null;
+		if (!checkForm(username, password)) return null;
 		try {
-			_setErrorStyles(username, password);
+			setErrorStyles(username, password);
 			await login(inputs);
 			navigate("/");
 		} catch (err) {
-			_setErrorStyles(username, password);
+			setErrorStyles(username, password);
 			setMsg(err.response.data);
 			setShowMsg(true);
 			setIsErr(true);
 		}
 	};
 
-	const handleShowPassword = e => e.target.form.password.type = e.target.checked ? "text" : "password";
-
-	function _checkForm(username, password) {
+	function checkForm(username, password) {
 		if (username.value === "" || password.value === "") {
-			_setErrorStyles(username, password);
+			setErrorStyles(username, password);
 			setMsg("Both fields must have value.");
 			setShowMsg(true);
 			setIsErr(true);
@@ -43,19 +50,19 @@ const Login = () => {
 		return true;
 	}
 
-	function _setErrorStyle(elem) {
+	function setErrorStyle(elem) {
 		if (elem.name === "password") {
-			if (elem.value === "") elem.className = errorPasswordInput;
-			else elem.className = validPasswordInput;
+			if (elem.value === "") elem.className = inputClassStyles.errorPasswordInput;
+			else elem.className = inputClassStyles.validPasswordInput;
 		} else {
-			if (elem.value === "") elem.className = errorInput;
-			else elem.className = validInput;
+			if (elem.value === "") elem.className = inputClassStyles.errorInput;
+			else elem.className = inputClassStyles.validInput;
 		}
 	}
 
-	function _setErrorStyles(username, password) {
-		_setErrorStyle(username);
-		_setErrorStyle(password);
+	function setErrorStyles(username, password) {
+		setErrorStyle(username);
+		setErrorStyle(password);
 	}
 
 	return (
