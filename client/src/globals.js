@@ -5,4 +5,13 @@ class InputClassStyles {
 	validPasswordInput = "validInput my-2 w-75 form-control form-control-sm";
 }
 
-module.exports = new InputClassStyles();
+const goToTop = () => {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth',
+	});
+};
+
+let inputClassStyles = new InputClassStyles();
+
+module.exports = {inputClassStyles, goToTop}
