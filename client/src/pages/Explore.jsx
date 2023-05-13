@@ -1,35 +1,46 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {AuthContext} from "../context/authContext";
 import Note from "../components/Note";
+import UpIcon from "../assets/img/up.svg";
+import {goToTop} from "../globals";
 
 const Explore = () => {
-	const navigate = useNavigate();
 
-	const [notes, setNotes] = useState([]);
 	const {currentUser} = useContext(AuthContext);
+	const navigate = useNavigate();
+	const [notes, setNotes] = useState([]);
+	const [showTopBtn, setShowTopBtn] = useState(false);
+	const endpoints = useMemo(() => {
+		return "/api/notes/public";
+	}, []);
 
-
-	const fetchData = useCallback(async () => {
-		try {
-			const res = await axios.get("/api/notes/public");
-			setNotes(res.data);
-		} catch (err) {
-			console.log(err);
-		}
-	}, [notes]);
-
+	const getData = useCallback(() => {
+		axios
+				.get(endpoints)
+				.then((notes) => setNotes(notes.data));
+	}, [endpoints]);
 
 	useEffect(() => {
-		fetchData().then();
-	}, [fetchData, currentUser, navigate]);
+		getData();
+		window.addEventListener('scroll', () => setShowTopBtn(window.scrollY > 150));
+	}, [currentUser, getData, navigate]);
 
 	return (
 			<div className="home">
 				<div className="notes row row-cols-4 g-2 mt-3">
-					{notes.map((note) => <div className="col singleNote" key={note.id}><Note isPublic={true} key={note.id} noteData={note} fetchData={fetchData}/></div>)}
+					{notes.map((note) => <div className="col singleNote" key={note.id}>
+						<Note key={note.id} noteData={note} getData={getData}/>
+					</div>)}
 				</div>
+				{showTopBtn && <div className="top-to-btm">
+					<span className="icon-position" onClick={goToTop}>
+						<div className="img-desc-go text-center">GO</div>
+						<img src={UpIcon} alt=""/>
+						<div className="img-desc text-center">UP</div>
+					</span>
+				</div>}
 			</div>
 	);
 };
