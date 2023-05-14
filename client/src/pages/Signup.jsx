@@ -110,27 +110,25 @@ const Signup = () => {
 	}
 
 	return (
-			<div className="auth">
-				<div className="wrapper">
-					<Form className="px-5 py-3 text-center row">
-						<h1 className="display-6 mb-4">Sign-up</h1>
-						<Form.Control className="my-2" size="sm" type="text" name="first_name" placeholder="First Name" onChange={handleChanges}/>
-						<Form.Control className="my-2" size="sm" type="text" name="last_name" placeholder="Last Name" onChange={handleChanges}/>
-						<Form.Control className="my-2" size="sm" type="text" name="username" placeholder="Username" onChange={handleChanges}/>
-						<Form.Control className="my-2" size="sm" type="text" name="email" placeholder="E-mail" onChange={handleChanges}/>
-						<Form.Control className="my-2 w-75" size="sm" type="password" name="password" placeholder="Password" onChange={handleChanges}/>
-						<Form.Check type="checkbox" className="w-25 m-auto" label="" onClick={handleShowPassword}/>
-						<Form.Control className="my-2 w-75" size="sm" type="password" name="password2" id="password2" placeholder="Repeat Password" onChange={handleChanges}/>
-						<Form.Check type="checkbox" className="w-25 my-auto" label="" onClick={handleShowRepeatPassword}/>
-						<Form.Control className="my-2" size="sm" type="file" name="profilePhoto" accept="image/png" onChange={e => setFile(e.target.files[0])}/>
-						<Button className="w-75 mx-auto my-2" variant="outline-primary" type="submit" size="sm" onClick={handleSubmit}>Sign Up</Button>
-						<div className="text-white-50 my-2">
-							Already have an account?
-							<br/>
-							<Link className="link" to="/login">Log In</Link> to post notes!
-						</div>
-					</Form>
-				</div>
+			<div className="auth col-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
+				<Form className="px-5 py-3 text-center row">
+					<h1 className="display-6 mb-4">Sign-up</h1>
+					<Form.Control className="my-2" size="sm" type="text" name="first_name" placeholder="First Name" onChange={handleChanges}/>
+					<Form.Control className="my-2" size="sm" type="text" name="last_name" placeholder="Last Name" onChange={handleChanges}/>
+					<Form.Control className="my-2" size="sm" type="text" name="username" placeholder="Username" onChange={handleChanges}/>
+					<Form.Control className="my-2" size="sm" type="text" name="email" placeholder="E-mail" onChange={handleChanges}/>
+					<Form.Control className="my-2 w-75" size="sm" type="password" name="password" placeholder="Password" onChange={handleChanges}/>
+					<Form.Check type="checkbox" className="w-25 m-auto" label="" onClick={handleShowPassword}/>
+					<Form.Control className="my-2 w-75" size="sm" type="password" name="password2" id="password2" placeholder="Repeat Password" onChange={handleChanges}/>
+					<Form.Check type="checkbox" className="w-25 my-auto" label="" onClick={handleShowRepeatPassword}/>
+					<Form.Control className="my-2" size="sm" type="file" name="profilePhoto" accept="image/png" onChange={e => setFile(e.target.files[0])}/>
+					<Button className="w-75 mx-auto my-2" variant="outline-primary" type="submit" size="sm" onClick={handleSubmit}>Sign Up</Button>
+					<div className="text-white-50 my-2">
+						Already have an account?
+						<br/>
+						<Link className="link" to="/login">Log In</Link> to post notes!
+					</div>
+				</Form>
 				<Alert className="signUpAlert" key="primary" variant="primary" onClose={() => setShowMsg(false)} show={showMsg} dismissible={isErr}>
 					<span>{msg}</span>
 					{isSuccess ? <span>&nbsp;You may click <Link to="/login">here</Link> to log in.</span> : ""}
