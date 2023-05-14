@@ -155,26 +155,26 @@ const DebugTools = () => {
 
 	return (
 			<div className="row align-items-center justify-content-evenly">
-				<div className="mt-3 mx-auto col-12 col-xxl-9">
+				<div className="mt-3 mx-auto col-12 col-md-10 col-xxl-9">
 					<Tabs id="baconTabs" activeKey={key} onSelect={(k) => setKey(k)} justify transition={false}>
 						<Tab eventKey="generateNotes" title="Generate Notes" className="row text-white">
 							<div className="notesAndUsers">
 								<Form className="row p-3 align-items-center">
-									<div className="col-3 mt-4 mb-2 text-center">
+									<div className="col-6 col-lg-3 mt-4 mb-2 text-center">
 										<Form.Label htmlFor="paras">Type</Form.Label>
 										<Form.Select name="type" className="text-center" onChange={handleParagraphChanges} defaultValue={generateInputs.type}>
 											<option disabled>Select type</option>
 											{getTypes()}
 										</Form.Select>
 									</div>
-									<div className="col-3 mt-4 mb-2 text-center">
+									<div className="col-6 col-lg-3 mt-4 mb-2 text-center">
 										<Form.Label htmlFor="paras">Number of Notes</Form.Label>
 										<Form.Control type="number" className="text-center" name="paras" min="1" value={generateInputs.paras} onChange={handleParagraphChanges}/>
 									</div>
-									<div className="col-3 mt-4 mb-2 text-center">
+									<div className="col-6 col-lg-3 mt-4 mb-2 text-center">
 										<Form.Check type="switch" name="start_with_lorem" label='Start with "Lorem"' onChange={handleParagraphChanges} checked={generateInputs.start_with_lorem !== 0}/>
 									</div>
-									<div className="col-3 mt-4 mb-2 text-center">
+									<div className="col-6 col-lg-3 mt-4 mb-2 text-center">
 										<Form.Label htmlFor="paras">User</Form.Label>
 										<Form.Select name="current_user" className="text-center" onChange={handleParagraphChanges} defaultValue="initDefaultUser">
 											<option value="initDefaultUser" disabled>Select User</option>
@@ -184,27 +184,27 @@ const DebugTools = () => {
 								</Form>
 								<hr/>
 								<div className="row px-3 pt-2 pb-3 align-items-center">
-									<div className="col-3 mt-4 mb-2 text-center">
+									<div className="col-6 col-lg-3 mt-4 mb-2 text-center">
 										<Form.Label htmlFor="paras">Number of Words In Title</Form.Label>
 										<Form.Control type="number" className="text-center" value={wordsInTitle} name="singleUserTitle" min="1" onChange={handleNoteTitle}/>
 									</div>
-									<div className="col-3 mt-4 mb-2 text-center">
+									<div className="col-6 col-lg-3 mt-4 mb-2 text-center">
 										<Form.Label htmlFor="paras">Number of Words In Body</Form.Label>
 										<Form.Control type="number" className="text-center" value={wordsInBody} name="singleUserBody" min="1" onChange={handleNoteBody}/>
 									</div>
-									<div className="col-3 mt-4 mb-2">
+									<div className="col-6 col-lg-3 mt-4 mb-2">
 										<Button onClick={generateNotesForOneUser} className="w-100" variant="primary">
 											Generate For One
 										</Button>
 									</div>
-									<div className="col-3 mt-4 mb-2">
+									<div className="col-6 col-lg-3 mt-4 mb-2">
 										<Button onClick={generateNotesForAllUsers} className="w-100" variant="primary">
 											Generate For All
 										</Button>
 									</div>
 								</div>
 							</div>
-							<div className="col-6 mx-auto my-3 tableWrapper">
+							<div className="col-12 col-md-6 mx-auto my-3 tableWrapper">
 								<Table bordered variant="primary" className="text-center">
 									<thead>
 									<tr>
@@ -247,15 +247,15 @@ const DebugTools = () => {
 						<Tab eventKey="generateUsers" title="Generate Users" className="row text-white">
 							<div className="notesAndUsers">
 								<Form className="row p-3 align-items-center">
-									<div className="col-6 mt-4 mb-2 text-center">
+									<div className="col-12 col-md-6 mt-4 mb-2 text-center">
 										<Form.Label htmlFor="paras">Number of Users</Form.Label>
 										<Form.Control type="number" className="text-center" name="numOfFakeUsers" min="1" max="500" value={numOfFakeUsers}
 																	onChange={handleNumberOfUsersChange}/>
 									</div>
-									<div className="col-6 mt-4 mb-2 text-center">
+									<div className="col-12 col-md-6 mt-4 mb-2 text-center">
 										<Button onClick={generateFakeUsers} className="w-100">Generate</Button>
 									</div>
-									<div className="col-6 mx-auto userResults">
+									<div className="col-12 col-md-8 col-xl-6 mx-auto userResults">
 										{fakeUsers.length > 0 &&
 												<div>
 													<h3 className="text-center">Results</h3>
