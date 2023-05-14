@@ -36,7 +36,9 @@ const AnonymityModal = ({currentUser, getData, show, handleClose, userData, para
 							<>
 								<p>You are currently Public.<br/>
 									Other users <span className="text-danger fw-bolder">can</span> see your details and notes.
-									<hr/>
+								</p>
+								<hr/>
+								<p>
 									By becoming anonymous, You will change those details to <span className="text-danger fw-bolder">hidden</span>.<br/>
 									<span className="text-danger fw-bolder fst-italic">Are you sure?</span>
 								</p>
