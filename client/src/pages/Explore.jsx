@@ -29,7 +29,7 @@ const Explore = () => {
 
 	return (
 			<div className="home">
-				<div className="notes row row-cols-4 g-2 mt-3">
+				<div className="notes row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-2 mt-3">
 					{notes.map((note) => <div className="col singleNote" key={note.id}>
 						<Note key={note.id} noteData={note} getData={getData}/>
 					</div>)}
