@@ -31,19 +31,19 @@ const AddNote = ({getData}) => {
 
 	return (
 			<div className="addNoteWrapper row">
-				<Card className="col-12 col-xxl-4 py-5 px-3 mx-auto">
+				<Card className="col-12 col-lg-8 col-xxl-4 py-5 px-3 mx-auto">
 					<Card.Body>
 						<Form>
 							<Form.Control as="textarea" name="title" placeholder="Title" id="title" value={inputs.title} onChange={handleChanges} onKeyDown={handleKeySubmit}/>
 							<hr/>
 							<Form.Control as="textarea" name="body" placeholder="Note" value={inputs.body} onChange={handleChanges} onKeyDown={handleKeySubmit}/>
 							<div className="row">
-								<div className="col-12 col-xxl-6 mx-auto">
+								<div className="col-12 col-lg-6 mx-auto">
 									<Button variant="outline-primary" className="w-100 mx-auto mt-4" onClick={handleSubmit} disabled={inputs.body === "" && inputs.title === ""}>
 										Submit
 									</Button>
 								</div>
-								<div className="col-12 col-xxl-6 mx-auto">
+								<div className="col-12 col-lg-6 mx-auto">
 									<Button variant="outline-danger" className="w-100 mx-auto mt-4" onClick={() => setInputs(inputsInitialSate)} disabled={inputs.body === "" && inputs.title === ""}>
 										Clear
 									</Button>
