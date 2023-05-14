@@ -4,7 +4,7 @@ import axios from "axios";
 
 const AnonymityModal = ({currentUser, getData, show, handleClose, userData, params}) => {
 	const handleMakeUserAnonymous = async () => {
-		if (params.username !== currentUser.username) return;
+		if (params.username !== currentUser?.username) return;
 		try {
 			await axios
 					.patch(`/api/users/${userData.username}`, {username: userData.username, is_anonymous: !userData.is_anonymous});

@@ -33,7 +33,7 @@ const UserInfo = ({userData, getData, params, notesCount, notes}) => {
 								<div id="profileUsername" className="text-center">
 									{isCurrentUser ? <span onClick={handleShowEditModal}>{userData.username}</span> : userData.username}
 									&nbsp;
-									<img onClick={handleIsAnonymous} className={(params.username === currentUser.username) ? "anonMask active" : "anonMask"}
+									<img onClick={handleIsAnonymous} className={(params.username === currentUser?.username) ? "anonMask active" : "anonMask"}
 											 src={userData.is_anonymous ? ActiveAnonymousIcon : AnonymousIcon} alt=""/>
 								</div>
 							</Card.Title>
