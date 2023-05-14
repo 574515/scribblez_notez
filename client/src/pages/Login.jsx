@@ -66,7 +66,7 @@ const Login = () => {
 	}
 
 	return (
-			<div className="auth col-6 mx-auto">
+			<div className="auth col-10 col-md-8 col-lg-6 col-xl-4 mx-auto">
 				<Form className="px-5 py-3 text-center row">
 					<h1 className="display-6 mb-4">Login</h1>
 					<Form.Control className="my-2" size="sm" type="text" name="username" placeholder="Username" onChange={handleChanges}/>
