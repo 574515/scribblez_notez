@@ -12,7 +12,7 @@ const Footer = () => {
 	if (pathname === "/debug_tools") return null;
 
 	return (
-			<footer className="text-center text-white">
+			<footer className="text-center sticky-bottom text-white">
 				<div className="p-2">
 					<section className="my-2">
 						<a className="btn btn-link btn-floating btn-lg text-dark m-1" href="https://facebook.com" target="_blank" role="button" data-mdb-ripple-color="dark" rel="noreferrer">
