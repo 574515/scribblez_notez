@@ -80,3 +80,11 @@ export const getNoteCountForUser = (req, res) => {
 		return res.status(200).json(data[0]["NOTES"]);
 	});
 }
+
+export const getPublicNoteCountForUser = (req, res) => {
+	const query = `SELECT COUNT(*) AS PUBLIC_NOTES FROM NOTES WHERE sn_user="${req.params.username}" AND is_public=1`;
+	db.query(query, (err, data) => {
+		if (err) return res.json(err);
+		return res.status(200).json(data[0]["PUBLIC_NOTES"]);
+	});
+}
