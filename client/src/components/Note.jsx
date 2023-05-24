@@ -30,8 +30,8 @@ const Note = ({noteData, getData}) => {
 	const handleDelete = async () => {
 		try {
 			await axios
-					.delete(`/api/notes/${noteData.id}`);
-			getData();
+					.delete(`/api/notes/${noteData.id}`)
+					.then(() => getData);
 		} catch (err) {
 			console.log(err);
 		}
@@ -41,8 +41,8 @@ const Note = ({noteData, getData}) => {
 		handleCloseVisibilityModal();
 		try {
 			await axios
-					.patch(`/api/notes/${noteData.id}`, {id: noteData.id, is_public: !noteData.is_public});
-			getData();
+					.patch(`/api/notes/${noteData.id}`, {id: noteData.id, is_public: !noteData.is_public})
+					.then(() => getData);
 		} catch (err) {
 			console.log(err);
 		}
