@@ -11,8 +11,6 @@ const Home = () => {
 
 	const {currentUser} = useContext(AuthContext);
 	const navigate = useNavigate();
-
-
 	const endpoints = useMemo(() => {
 		return "/api/notes";
 	}, []);
