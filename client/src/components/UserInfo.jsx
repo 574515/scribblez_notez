@@ -8,7 +8,7 @@ import ReactTimeAgo from "react-time-ago";
 import EditProfileModal from "./EditProfileModal";
 import AnonymityModal from "./AnonymityModal";
 
-const UserInfo = ({userData, getData, params, notesCount, notes}) => {
+const UserInfo = ({userData, getData, params, notesCount, publicNotesCount, notes}) => {
 
 	const {currentUser} = useContext(AuthContext);
 	const isCurrentUser = currentUser?.id === userData.id;
@@ -43,18 +43,15 @@ const UserInfo = ({userData, getData, params, notesCount, notes}) => {
 									<div className="col-12 my-2">
 										<img className="profilePicture" src={userData.image ? `uploads/${userData.image}` : `${DefaultAvatar}`} alt=""/>
 									</div>
-									{userData.first_name &&
-											<div className="col-6 my-2">
-												<b>First name:</b><br/>{userData.is_anonymous && !isCurrentUser ? <span className='text-muted'><i>[hidden]</i></span> : userData.first_name}
-											</div>}
-									{userData.last_name &&
-											<div className="col-6 my-2">
-												<b>Last name:</b><br/>{userData.is_anonymous && !isCurrentUser ? <span className='text-muted'><i>[hidden]</i></span> : userData.last_name ? userData.last_name : "-"}
-											</div>}
-									{userData.email &&
-											<div className="col-12 my-2">
-												<b>E-mail:</b><br/>{userData.is_anonymous && !isCurrentUser ? <span className="text-muted"><i>[hidden]</i></span> : userData.email ? userData.email : "-"}
-											</div>}
+									<div className="col-12 col-md-6 my-2">
+										<b>First name:</b><br/>{userData.is_anonymous && !isCurrentUser ? <span className='text-muted'><i>[hidden]</i></span> : (userData.first_name ? userData.first_name : "-")}
+									</div>
+									<div className="col-12 col-md-6 my-2">
+										<b>Last name:</b><br/>{userData.is_anonymous && !isCurrentUser ? <span className='text-muted'><i>[hidden]</i></span> : userData.last_name ? userData.last_name : "-"}
+									</div>
+									<div className="col-12 my-2">
+										<b>E-mail:</b><br/>{userData.is_anonymous && !isCurrentUser ? <span className="text-muted"><i>[hidden]</i></span> : userData.email ? userData.email : "-"}
+									</div>
 								</div>
 							</Card.Text>
 						</div>
@@ -65,7 +62,7 @@ const UserInfo = ({userData, getData, params, notesCount, notes}) => {
 								<b>Joined:</b> <ReactTimeAgo date={parsedJoinDate}/>
 							</div>
 							<div className="col-12">
-								<b>Number of Notes:</b> {notesCount}
+								<b>Number of Notes:</b> {isCurrentUser ? notesCount : publicNotesCount}
 							</div>
 						</div>
 					</Card.Footer>
