@@ -14,14 +14,13 @@ const AddNote = ({getData}) => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		try {
-			await axios
-					.post("/api/notes/", {inputs, currentUserUsername});
-			getData();
-			setInputs({title: "", body: ""});
-		} catch (err) {
-			console.log(err);
-		}
+		await axios
+				.post("/api/notes/", {inputs, currentUserUsername})
+				.then(() => {
+					getData();
+					setInputs({title: "", body: ""});
+				})
+				.catch((err) => console.log(err));
 	};
 
 	const handleKeySubmit = (e) => {
